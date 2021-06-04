@@ -1,3 +1,5 @@
+// Created global variables for Scoreboard and User Inputs to be changed in functions.
+
 let playerScore = 0;
 let computerScore = 0;
 let roundScore = 0;
@@ -31,8 +33,9 @@ function computerPlay() {
 function getUserChoice() {
     selection = prompt("Please choose either Rock, Paper, or Scissor: ")
     changeAnswer = selection.trim().toLowerCase();
+
     return (changeAnswer);
-    }
+}
 // Round play function which accounts for all possible outcomes in Rock, Paper, Scissors.
 // Each outcome adds +1 ontop of the existing score variable.
 // Considers ties and if the input on the user isn't any possible variation it will
