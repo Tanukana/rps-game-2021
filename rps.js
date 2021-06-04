@@ -26,7 +26,7 @@ function computerPlay() {
         }
 }
 // A Prompt for user input on their choice in the game between rock, paper, and scissor
-// Also takes the priompted answer and converts it to lowercase and trims all spaces
+// Also takes the prompted answer and converts it to lowercase and trims all spaces
 // making sure the answer we process in later functions will always be a strict
 // variation of the 3 choices.
 
