@@ -9,8 +9,9 @@ let changeAnswer;
 let userSelect;
 let cpuSelect;
 
-// Computer function to randomize a number between 1-3 and return between 3
-// variables of r, p, s which stand for rock, paper, scissor.
+// Choice selection for the computer opponent. Uses a number randomizer that ranges
+// between 1-3 and uses the selected outcome to correlate to a return of either
+// rock, paper, or scissor (variables: r, p, s )
 
 function computerPlay() {
     let r = "rock";
@@ -25,10 +26,9 @@ function computerPlay() {
             return (s);
         }
 }
-// A Prompt for user input on their choice in the game between rock, paper, and scissor
-// Also takes the prompted answer and converts it to lowercase and trims all spaces
-// making sure the answer we process in later functions will always be a strict
-// variation of the 3 choices.
+// Prompts user input for the choice between rock, paper, and scissor.
+// Takes input and converts to all lower case while trimming excess whitespace to
+// ensure a strict variation of the 3 choices to be returned
 
 function getUserChoice() {
     selection = prompt("Please choose either Rock, Paper, or Scissor: ")
@@ -36,10 +36,9 @@ function getUserChoice() {
 
     return (changeAnswer);
 }
-// Round play function which accounts for all possible outcomes in Rock, Paper, Scissors.
-// Each outcome adds +1 ontop of the existing score variable.
-// Considers ties and if the input on the user isn't any possible variation it will
-// throw an error message.
+// Per round function which compares user input and computer generated input
+// and determines outcome of the game while incrementing the scoreboard each round.
+// Considers invalid inputs.
 
 function playRound() {
         userSelect = getUserChoice();
@@ -61,7 +60,7 @@ function playRound() {
             roundScore += 1;
             tieScore +=1;
             return (console.log(`You both picked ${userSelect}! It's a tie.`));
-        } else if (userSelect === undefined || null) {
+        } else if (userSelect === undefined) {
             return alert("Exiting Game.");
         } else if (userSelect !== "rock" && userSelect !== "paper" && userSelect !== "scissor") {
             alert("You will have to restart the game as you have entered an incorrect answer!"); 
@@ -71,8 +70,8 @@ function playRound() {
             return (console.log(`You lose! ${userSelect} loses to ${cpuSelect}.`));
         }
 }
-// Game reset function which takes all score counters and possible inputs to 0 or
-// default ( blank string ).
+// Game reset function which sets all related variables to the game back to their
+// default state of either 0 or an empty string.
 
 function gameReset() {
     playerScore = 0;
@@ -82,9 +81,9 @@ function gameReset() {
     selection = " ";
     changeAnswer = " ";
 }
-// Function to trigger the entire game with a reset from every start of the game.
-// Also resets answers before every loop to make sure there aren't any errors when
-// each loop requires extra input within the same variable.
+// Entire game start function. Calls on an entire reset of the game at the beginning
+// to start a fresh game each time the function is called. For loop which cleans
+// the user input each time around to ensure a new individual answer each time.
 
 function game() {
         gameReset();
