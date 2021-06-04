@@ -1,5 +1,3 @@
-// Created global variables for Scoreboard and User Inputs to be changed in functions.
-
 let playerScore = 0;
 let computerScore = 0;
 let roundScore = 0;
@@ -9,9 +7,7 @@ let changeAnswer;
 let userSelect;
 let cpuSelect;
 
-// Choice selection for the computer opponent. Uses a number randomizer that ranges
-// between 1-3 and uses the selected outcome to correlate to a return of either
-// rock, paper, or scissor (variables: r, p, s )
+// Answer returned depending on random number generated between 1-3
 
 function computerPlay() {
     let r = "rock";
@@ -26,9 +22,6 @@ function computerPlay() {
             return (s);
         }
 }
-// Prompts user input for the choice between rock, paper, and scissor.
-// Takes input and converts to all lower case while trimming excess whitespace to
-// ensure a strict variation of the 3 choices to be returned
 
 function getUserChoice() {
     selection = prompt("Please choose either Rock, Paper, or Scissor: ")
@@ -36,6 +29,7 @@ function getUserChoice() {
 
     return (changeAnswer);
 }
+
 // Per round function which compares user input and computer generated input
 // and determines outcome of the game while incrementing the scoreboard each round.
 // Considers invalid inputs.
@@ -81,9 +75,6 @@ function gameReset() {
     selection = " ";
     changeAnswer = " ";
 }
-// Entire game start function. Calls on an entire reset of the game at the beginning
-// to start a fresh game each time the function is called. For loop which cleans
-// the user input each time around to ensure a new individual answer each time.
 
 function game() {
         gameReset();
