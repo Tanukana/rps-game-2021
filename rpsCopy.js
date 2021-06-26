@@ -30,28 +30,12 @@ function getUserChoice() {
     return (changeAnswer);
 }
 
-const btn = document.querySelectorAll('.pick button');
-btn.forEach(userChoice => userChoice.addEventListener('click', choice));
-
-function choice() {
-    if(this.name == 'rock') {
-        selection = 'rock';
-        game();
-    } else if(this.name == 'paper') {
-        selection = 'paper';
-        game();
-    } else {
-        selection = 'scissor';
-        game();
-    }
-}
-
 // Per round function which compares user input and computer generated input
 // and determines outcome of the game while incrementing the scoreboard each round.
 // Considers invalid inputs.
 
 function playRound() {
-        userSelect = selection;
+        userSelect = getUserChoice();
         cpuSelect = computerPlay();
 
         if (userSelect === "rock" && cpuSelect == "scissor") {
@@ -88,12 +72,17 @@ function gameReset() {
     roundScore = 0;
     computerScore = 0;
     tieScore = 0;
+    selection = " ";
+    changeAnswer = " ";
 }
 
 function game() {
         gameReset();
-    //for (i = 0; i < 5; i++) {
+    for (i = 0; i < 5; i++) {
+        selection = " ";
+        changeAnswer = " ";
         playRound();
         console.log(`You: ${userSelect}, Computer: ${cpuSelect}`);
         console.log(`Player Wins: ${playerScore} | Computer Wins: ${computerScore} | Ties: ${tieScore} | Rounds: ${roundScore}`);
     }
+}
