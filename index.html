@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors in Javascript</title>
+    <link rel="stylesheet" href="./rps-style.css">
 </head>
 <body>
     <div class="pick">
@@ -13,8 +14,17 @@
     <button class="userChoice" value="paper" name ="paper">Paper!</button>
     </div>
 
-    <div class="scoreDisplay">
+    <div id="scoreDisplay">
         
+    </div>
+
+    <div id="scoreHistory">
+
+    </div>
+
+    <div class="clear">
+        <br>
+        <button class="reset" value="resetGame" name="resetGame">Reset Game</button>
     </div>
 </body>
 <script src="rps.js"></script>

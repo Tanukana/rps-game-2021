@@ -23,12 +23,7 @@ function computerPlay() {
         }
 }
 
-function getUserChoice() {
-    selection = prompt("Please choose either Rock, Paper, or Scissor: ")
-    changeAnswer = selection.trim().toLowerCase();
-
-    return (changeAnswer);
-}
+// Returns corresponding answer when any of the three buttons are clicked.
 
 const btn = document.querySelectorAll('.pick button');
 btn.forEach(userChoice => userChoice.addEventListener('click', choice));
@@ -36,64 +31,104 @@ btn.forEach(userChoice => userChoice.addEventListener('click', choice));
 function choice() {
     if(this.name == 'rock') {
         selection = 'rock';
-        game();
+        playRound();
     } else if(this.name == 'paper') {
         selection = 'paper';
-        game();
+        playRound();
     } else {
         selection = 'scissor';
-        game();
+        playRound();
     }
 }
 
-// Per round function which compares user input and computer generated input
-// and determines outcome of the game while incrementing the scoreboard each round.
-// Considers invalid inputs.
+
+// A scoreboard which updates itself
+function scoreUpdater() {
+    const scoreDisplay = document.querySelector('#scoreDisplay');
+    const elementExists = document.querySelector('#scoreDisplay p');
+    if(elementExists == undefined && elementExists == null) {
+        const paraD = document.createElement('p')
+        paraD.innerText = `You: ${userSelect}, Computer: ${cpuSelect} \n Player Wins: ${playerScore} | Computer Wins: ${computerScore} | Ties: ${tieScore} | Rounds: ${roundScore}`;
+        scoreDisplay.appendChild(paraD);
+        // Checking to see if a paragraph exists within div
+    } else {
+        elementExists.innerText = `You: ${userSelect}, Computer: ${cpuSelect} \n Player Wins: ${playerScore} | Computer Wins: ${computerScore} | Ties: ${tieScore} | Rounds: ${roundScore}`;
+        // If a paragraph exists this will simply just update the paragraph with new details
+    }
+}
+
+// Creates a history of each round and displays it
+function scoreLog(txt) {
+    // Limiting the history log to 5 rounds
+    if(roundScore <= 5) {
+    const scoreHistory = document.querySelector('#scoreHistory');
+    const paraH = document.createElement('p');
+    paraH.classList.add(`${roundScore}`);
+    paraH.textContent = txt;
+    // Creates a new paragraph which comes from the playRound() function.
+
+    scoreHistory.appendChild(paraH);
+
+    // Calls the scoreUpdater function to update the score each round.
+    scoreUpdater();
+    } else {
+        return; // Stops the game after 5 rounds.
+    }
+}
+
+// Game function which compares the results of user input against a random answer.
 
 function playRound() {
-        userSelect = selection;
-        cpuSelect = computerPlay();
+    userSelect = selection;
+    cpuSelect = computerPlay();
+
+    if(roundScore < 5) {
 
         if (userSelect === "rock" && cpuSelect == "scissor") {
             playerScore += 1;
             roundScore += 1;
-            return (console.log(`You win! ${userSelect} beats ${cpuSelect}.`));
+            scoreLog(`Round(${roundScore}) You win! ${userSelect} beats ${cpuSelect}!`);
         } else if (userSelect === "paper" && cpuSelect == "rock") {
             playerScore += 1;
             roundScore += 1;
-            return (console.log(`You win! ${userSelect} beats ${cpuSelect}.`));
+            scoreLog(`Round(${roundScore}) You win! ${userSelect} beats ${cpuSelect}!`);
         } else if (userSelect === "scissor" && cpuSelect == "paper") {
             playerScore += 1;
             roundScore += 1;
-            return (console.log(`You win! ${userSelect} beats ${cpuSelect}.`));
+            scoreLog(`Round(${roundScore}) You win! ${userSelect} beats ${cpuSelect}!`);
         } else if (userSelect === cpuSelect) {
             roundScore += 1;
             tieScore +=1;
-            return (console.log(`You both picked ${userSelect}! It's a tie.`));
-        } else if (userSelect === undefined) {
-            return alert("Exiting Game.");
-        } else if (userSelect !== "rock" && userSelect !== "paper" && userSelect !== "scissor") {
-            alert("You will have to restart the game as you have entered an incorrect answer!"); 
+            scoreLog(`Round(${roundScore}) It's a tie between ${userSelect} and ${cpuSelect}.`);
         } else {
             computerScore += 1;
             roundScore += 1;
-            return (console.log(`You lose! ${userSelect} loses to ${cpuSelect}.`));
+            scoreLog(`Round(${roundScore}) You lose! ${cpuSelect} beats ${userSelect}!`);
         }
+
+    } else {
+        return;
+    }
 }
-// Game reset function which sets all related variables to the game back to their
-// default state of either 0 or an empty string.
+
+// Removes all child nodes which will be used to reset the game
+
+function removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
+
+// Full reset of the game
+
+const clear = document.querySelector('.clear');
+const clearEvent = clear.addEventListener('click', gameReset);
 
 function gameReset() {
+    removeAllChildNodes(scoreDisplay);
+    removeAllChildNodes(scoreHistory);
     playerScore = 0;
     roundScore = 0;
     computerScore = 0;
     tieScore = 0;
 }
-
-function game() {
-        gameReset();
-    //for (i = 0; i < 5; i++) {
-        playRound();
-        console.log(`You: ${userSelect}, Computer: ${cpuSelect}`);
-        console.log(`Player Wins: ${playerScore} | Computer Wins: ${computerScore} | Ties: ${tieScore} | Rounds: ${roundScore}`);
-    }
